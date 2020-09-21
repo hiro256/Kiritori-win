@@ -19,7 +19,8 @@ namespace Kiritori
         public MainApplication()
         {
             InitializeComponent();
-            hotKey = new HotKey(MOD_KEY.CONTROL | MOD_KEY.SHIFT, Keys.D5);
+            // hotKey = new HotKey(MOD_KEY.CONTROL | MOD_KEY.SHIFT, Keys.D5);
+            hotKey = new HotKey(MOD_KEY.CONTROL, Keys.F12);
             hotKey.HotKeyPush += new EventHandler(hotKey_HotKeyPush);
             Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
             s = new ScreenWindow(this);
@@ -91,6 +92,11 @@ namespace Kiritori
             item1.ImageScaling = ToolStripItemImageScaling.None;
             item1.Tag = sw;
             historyToolStripMenuItem1.DropDownItems.Add(item1);
+            //メモリ節約のため履歴は3件まで
+            if (historyToolStripMenuItem1.DropDownItems.Count > 3)
+            {
+                historyToolStripMenuItem1.DropDownItems.RemoveAt(0);
+            }
             item1.Click += new System.EventHandler(this.historyToolStripMenuItem1_item_Click);
         }
         private void hideAllWindowsToolStripMenuItem_Click(object sender, EventArgs e)
